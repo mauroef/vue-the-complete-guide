@@ -1,21 +1,21 @@
 const app = Vue.createApp({
   data() {
     return {
-      counter: 0,
-      name: '',
+      paragraphOne: '',
+      paragraphTwo: '',
     };
   },
   methods: {
-    add(num) {
-      this.counter = this.counter + num;
+    showAlert() {
+      alert('Button clicked!');
     },
-    remove(num) {
-      this.counter = this.counter - num;
+    updateParagraphOnKeydown(e) {
+      this.paragraphOne = e.target.value;
     },
-    setName(event, lastName) {
-      this.name = event.target.value + ' ' + lastName;
+    updateParagraphOnEnter(e) {
+      this.paragraphTwo = e.target.value;
     },
   },
 });
 
-app.mount('#events');
+app.mount('#assignment');
