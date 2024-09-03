@@ -1,21 +1,36 @@
 const app = Vue.createApp({
   data() {
     return {
-      paragraphOne: '',
-      paragraphTwo: '',
+      counter: 0,
+      name: '',
     };
   },
+  computed: {
+    fullname() {
+      console.log('running computed fullname');
+      if (this.name === '') return '';
+      return this.name + ' ' + 'Frete';
+    },
+  },
   methods: {
-    showAlert() {
-      alert('Button clicked!');
+    outputFullname () {
+      if (this.name === '') return;
+      return this.name + ' ' + 'Frete';
     },
-    updateParagraphOnKeydown(e) {
-      this.paragraphOne = e.target.value;
+    setName(event) {
+      this.name = event.target.value;
     },
-    updateParagraphOnEnter(e) {
-      this.paragraphTwo = e.target.value;
+    add(num) {
+      this.counter = this.counter + num;
+    },
+    reduce(num) {
+      this.counter = this.counter - num;
+      // this.counter--;
+    },
+    resetInput() {
+      this.name = '';
     },
   },
 });
 
-app.mount('#assignment');
+app.mount('#events');
