@@ -1,62 +1,30 @@
 const app = Vue.createApp({
   data() {
     return {
-      counter: 0,
-      name: '',
-      lastname: '',
-      // fullname: '',
+      result: 0,
     };
   },
   watch: {
-    counter() {
+    showResult() {
+      if (this.result !== 0) console.log('running watcher');
       const that = this;
-      setTimeout(function () {
-        that.counter = 0;
-      }, 2000);
+      setTimeout(() => {
+        that.result = 0;
+      }, 5000);
     },
-    // name(value, oldValue) {
-    //   console.log('running watch fullname');
-    //   if (value === '') {
-    //     console.log('empty');
-    //     this.fullname = '';
-    //   } else {
-    //     this.fullname = value + ' ' + this.lastname;
-    //   }
-    // },
-    // lastname(value) {
-    //   if (value === '') {
-    //     this.fullname = '';
-    //   } else {
-    //     this.fullname = value + ' ' + 'Frete';
-    //   }
-    // }
   },
   computed: {
-    fullname() {
-      console.log('running computed fullname');
-      if (this.name === '' || this.lastname === '') return '';
-      return this.name + ' ' + this.lastname;
+    showResult() {
+      if (this.result < 37) return 'Not there yet';
+      else if (this.result === 37) return this.result;
+      else return 'Too much!';
     },
   },
   methods: {
-    outputFullname() {
-      if (this.name === '') return;
-      return this.name + ' ' + 'Frete';
-    },
-    setName(event) {
-      this.name = event.target.value;
-    },
-    add(num) {
-      this.counter = this.counter + num;
-    },
-    reduce(num) {
-      this.counter = this.counter - num;
-      // this.counter--;
-    },
-    resetInput() {
-      this.name = '';
+    add(amount) {
+      this.result += amount;
     },
   },
 });
 
-app.mount('#events');
+app.mount('#assignment');
