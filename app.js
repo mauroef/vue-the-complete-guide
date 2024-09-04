@@ -1,27 +1,27 @@
 const app = Vue.createApp({
   data() {
     return {
-      boxASelected: false,
-      boxBSelected: false,
-      boxCSelected: false,
+      userInput: '',
+      visible: true,
+      backgroundInput: '',
     };
   },
   computed: {
-    boxAClasses() {
-      return { active: this.boxASelected };
+    styleParagraph() {
+      return {
+        user1: this.userInput === 'user1',
+        user2: this.userInput === 'user2',
+      };
+    },
+    visibility() {
+      return this.visible ? { visible: true } : { hidden: true };
     },
   },
   methods: {
-    boxSelected(box) {
-      if (box === 'A') {
-        this.boxASelected = !this.boxASelected;
-      } else if (box === 'B') {
-        this.boxBSelected = !this.boxBSelected;
-      } else if (box === 'C') {
-        this.boxCSelected = !this.boxCSelected;
-      }
+    toggle() {
+      this.visible = !this.visible;
     },
   },
 });
 
-app.mount('#styling');
+app.mount('#assignment');
