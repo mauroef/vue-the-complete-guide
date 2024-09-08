@@ -2,9 +2,8 @@
   <section>
     <h2>My Friends</h2>
     <ul>
-      <li v-for="friend in friends" :key="friend.id">
-        <h3>{{ friend.name }}</h3>
-      </li>
+      <friend-contact></friend-contact>
+      <friend-contact></friend-contact>
     </ul>
   </section>
 </template>
@@ -18,16 +17,16 @@ export default {
           id: 'manuel',
           name: 'Manuel Lorenz',
           phone: '0123 45678 90',
-          email: 'manuel@localhost.com'
+          email: 'manuel@localhost.com',
         },
         {
           id: 'julie',
           name: 'Julie Jones',
           phone: '0123 45678 91',
-          email: 'julie@localhost.com'
-        }
-      ]
-    }
-  }
-}
+          email: 'julie@localhost.com',
+        },
+      ],
+    };
+  },
+};
 </script>
