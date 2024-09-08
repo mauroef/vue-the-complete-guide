@@ -1,10 +1,24 @@
-# Vue.js - The Complete Guide (incl. Router & Composition API)
+# vue-the-complete-guide
 
-This repository contains the project code for the course [Vue.js - The Complete Guide (incl. Router & Composition API)](https://www.udemy.com/course/vuejs-complete-guide/).
+## Project setup
+```
+npm install
+```
 
-Each section of the course is represented by its corresponding branch in this repository, allowing you to easily follow along with the course content.
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
 
-## Branch Structure
+### Compiles and minifies for production
+```
+npm run build
+```
 
-The repository is organized into branches, each one corresponding to a specific section of the course. As you progress, you can switch between branches to see the code for that section.
+### Lints and fixes files
+```
+npm run lint
+```
 
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
