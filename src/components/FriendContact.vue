@@ -21,6 +21,10 @@
 <script>
 export default {
   props: {
+    id: {
+      type: String,
+      required: true,
+    },
     name: {
       type: String,
       required: true,
@@ -48,7 +52,6 @@ export default {
       //   phone: "0123 45678 90",
       //   email: "manuel@localhost.com",
       // },
-      friendIsFavorite: this.isFavorite,
     };
   },
   methods: {
@@ -56,7 +59,7 @@ export default {
       this.detailsAreVisible = !this.detailsAreVisible;
     },
     toggleFavorite() {
-      this.friendIsFavorite = !this.friendIsFavorite;
+      this.$emit('toggle-favorite', this.id);
     },
   },
 };
