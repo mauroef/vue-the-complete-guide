@@ -3,6 +3,7 @@
     <header>
       <h1>My Friends</h1>
     </header>
+    <new-friend @add-friend="addFriend"></new-friend>
     <ul>
       <friend-contact
         v-for="friend in friends"
@@ -11,7 +12,7 @@
         :name="friend.name"
         :phone-number="friend.phone"
         :email-address="friend.email"
-        :is-favorite="true"
+        :is-favorite="friend.isFavorite"
         @toggle-favorite="toggleFavoriteStatus(friend.id)"
       ></friend-contact>
     </ul>
@@ -28,12 +29,14 @@ export default {
           name: 'Manuel Lorenz',
           phone: '0123 45678 90',
           email: 'manuel@localhost.com',
+          isFavorite: true,
         },
         {
           id: 'julie',
           name: 'Julie Jones',
           phone: '0987 654421 21',
           email: 'julie@localhost.com',
+          isFavorite: false,
         },
       ],
     };
@@ -44,6 +47,16 @@ export default {
         (friend) => friend.id === friendId
       );
       identifiedFriend.isFavorite = !identifiedFriend.isFavorite;
+    },
+    addFriend(name, phone, email) {
+      const newFriend = {
+        id: new Date().toISOString(),
+        name: name,
+        phone: phone,
+        email: email,
+        isFavorite: false,
+      };
+      this.friends.push(newFriend);
     },
   },
 };
@@ -80,7 +93,8 @@ header {
   list-style: none;
 }
 
-#app li {
+#app li,
+#app form {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   margin: 1rem auto;
   border-radius: 10px;
