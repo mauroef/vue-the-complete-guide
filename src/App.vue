@@ -5,7 +5,9 @@
     <button @click="setSelectedComponent('manage-goals')">Manage Goals</button>
     <!-- <active-goals></active-goals> -->
     <!-- <manage-goals></manage-goals> -->
-     <component :is="selectedComponent"></component>
+    <keep-alive>
+      <component :is="selectedComponent"></component>
+    </keep-alive>
   </div>
 </template>
 
@@ -21,7 +23,7 @@ export default {
   components: {
     TheHeader,
     ActiveGoals,
-    ManageGoals
+    ManageGoals,
   },
   data() {
     return {
@@ -36,8 +38,8 @@ export default {
   methods: {
     setSelectedComponent(component) {
       this.selectedComponent = component;
-    }
-  }
+    },
+  },
 };
 </script>
 
