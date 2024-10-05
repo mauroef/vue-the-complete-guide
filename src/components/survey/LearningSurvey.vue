@@ -52,7 +52,7 @@ export default {
       //   rating: this.chosenRating,
       // });
 
-      fetch('https://vue-http-demo-53545-default-rtdb.firebaseio.com/surverys.json', {
+      fetch('https://vue-http-demo-53545-default-rtdb.firebaseio.com/surveys.json', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

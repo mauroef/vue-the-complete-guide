@@ -8,7 +8,13 @@
         >
       </div>
       <p v-if="isLoading">Loading...</p>
-      <ul v-if="!isLoading">
+      <p v-else-if="!isLoading && error">
+        {{ error }}
+      </p>
+      <p v-else-if="!isLoading && (!results || results.length === 0)">
+        No stored experiences found. Start adding some survey results.
+      </p>
+      <ul v-else>
         <survey-result
           v-for="result in results"
           :key="result.id"
@@ -31,20 +37,24 @@ export default {
     return {
       results: [],
       isLoading: false,
+      error: null,
     };
   },
   methods: {
     loadExperiences() {
       this.isLoading = true;
+      this.error = null;
       fetch(
-        'https://vue-http-demo-53545-default-rtdb.firebaseio.com/surverys.json'
+        'https://vue-http-demo-53545-default-rtdb.firebaseio.com/surveys.jsonTEST'
       )
         .then((response) => {
           if (response.ok) {
             return response.json();
           }
+          throw new Error('Network response was not ok.');
         })
         .then((data) => {
+          this.isLoading = false;
           const result = [];
           for (const id in data) {
             result.push({
@@ -54,14 +64,18 @@ export default {
             });
           }
           this.results = result;
+        })
+        .catch((error) => {
+          console.log(error);
           this.isLoading = false;
+          this.error = 'Failed to fech data. Please try again later.';
         });
       // this.results = this.$store.getters['experiences'];
     },
   },
   mounted() {
     this.loadExperiences();
-  }
+  },
 };
 </script>
 
