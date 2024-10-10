@@ -30,14 +30,31 @@ const router = createRouter({
         },
       ],
     },
-    { path: '/users', components: { default: UsersList, footer: UsersFooter } },
+    {
+      path: '/users',
+      components: { default: UsersList, footer: UsersFooter },
+      beforeEnter: (to, from, next) => {
+        next();
+      },
+    },
     { path: '/:notFound(.*)', component: NotFound },
   ],
   linkActiveClass: 'active',
-  scrollBehavior(to, from, savedPosition) {
+  scrollBehavior(_, _2, savedPosition) {
     return { left: 0, top: 0 };
   },
 });
+
+router.beforeEach((to, from, next) => {
+  // if (to.name === 'team-members') {
+  //   next({ name: 'teams' });
+  // }
+  next();
+});
+
+router.afterEach((to, from) => {
+  // sending analytics data
+})
 
 const app = createApp(App);
 
