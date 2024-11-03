@@ -12,8 +12,8 @@
       >
     </div>
     <div class="actions">
-      <base-button mode="outline" :to="coachContactLink">Contact</base-button>
-      <base-button :to="coachDetailsLink">View Details</base-button>
+      <base-button link mode="outline" :to="coachContactLink">Contact</base-button>
+      <base-button link :to="coachDetailsLink">View Details</base-button>
     </div>
   </li>
 </template>
@@ -26,10 +26,10 @@ export default {
       return this.firstName + ' ' + this.lastName;
     },
     coachContactLink() {
-      return this.$route.path + '/coaches/' + this.id + '/contact';
+      return this.$route.path + '/' + this.id + '/contact';
     },
     coachDetailsLink() {
-      return this.$route.path + this.id;
+      return this.$route.path + '/' + this.id;
     },
   },
 };
