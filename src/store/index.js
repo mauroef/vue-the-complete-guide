@@ -1,10 +1,21 @@
 import { createStore } from 'vuex';
 
 import coachesModule from './modules/coaches';
+import getters from './modules/coaches/getters';
 
 const store = createStore({
   modules: {
     coaches: coachesModule,
+  },
+  state() {
+    return {
+      userId: 'c3',
+    };
+  },
+  getters: {
+    userId(state) {
+      return state.userId;
+    },
   },
 });
 
