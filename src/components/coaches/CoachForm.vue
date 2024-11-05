@@ -133,7 +133,6 @@ export default {
         this.formIsValid = false;
       }
       if (this.areas.val.length === 0) {
-        console.log('enter not valid', this.areas.val);
         this.areas.isValid = false;
         this.formIsValid = false;
       }
