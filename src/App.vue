@@ -1,79 +1,78 @@
 <template>
-  <header>
-    <h1>Expense Tracker</h1>
-  </header>
-  <section>
-    <div>Available Funds: {{ availableFunds }}</div>
-    <div>Total Expenses: {{ currentExpenses }}</div>
-    <hr />
-    <div>Funds left: {{ remainingFunds }}</div>
-  </section>
-  <section>
-    <form @submit.prevent="addExpense">
-      <div>
-        <label for="amount">Amount</label>
-        <input id="amount" type="number" v-model="enteredExpense" />
-      </div>
-      <button>Add Expense</button>
-    </form>
+  <section class="container">
+    <h2>{{ fullName }}</h2>
+    <!-- <h2>{{ user.name }}</h2> -->
+    <h3>{{ userAge }}</h3>
+    <button @click="setAge">Change Age</button>
+    <div>
+      <input type="text" placeholder="First Name" v-model="firstName" />
+      <input type="text" placeholder="Last Name" ref="lastNameInput" />
+      <button @click="setLastName">Set last name</button>
+    </div>
   </section>
 </template>
 
 <script>
-import { ref, computed, watch } from 'vue';
+import { ref, reactive, computed, watch } from 'vue';
 
 export default {
   setup() {
-    const availableFunds = 100;
-    const currentExpenses = ref(0);
-    const enteredExpense = ref(0);
+    const userName = ref('Maximilian');
+    const userAge = ref(29);
+    // const user = reactive({
+    //   name: 'Maximilian',
+    //   age: 29,
+    // });
 
-    const remainingFunds = computed(() => {
-      return availableFunds - currentExpenses.value;
+    const firstName = ref('');
+    const lastName = ref('');
+
+    const lastNameInput = ref(null);
+
+    watch([userAge, userName], (newValues, oldValues) => {
+      console.log('Old Value', oldValues[0]);
+      console.log('New Value', newValues[0]);
     });
 
-    const addExpense = () => {
-      currentExpenses.value += enteredExpense.value;
-    };
+    const fullName = computed(() => {
+      return firstName.value + ' ' + lastName.value;
+    });
 
-    watch(remainingFunds, (newValue) => {
-      if (newValue < 0) {
-        alert('You are broke!');
-      }
-    })
+    function setNewAge() {
+      // user.age = 30;
+      userAge.value = 30;
+    }
+
+    function setLastName() {
+      lastName.value = lastNameInput.value.value;
+    }
 
     return {
-      availableFunds,
-      currentExpenses,
-      enteredExpense,
-      remainingFunds,
-      addExpense,
+      userName,
+      userAge,
+      setAge: setNewAge,
+      firstName,
+      lastName,
+      fullName,
+      lastNameInput,
+      setLastName,
     };
   },
   // data() {
   //   return {
-  //     availableFunds: 100,
-  //     currentExpenses: 0,
-  //     enteredExpense: 0,
+  //     userName: 'Maximilian',
   //   };
   // },
-  // computed: {
-  //   remainingFunds() {
-  //     return this.availableFunds - this.currentExpenses;
-  //   },
-  // },
   // methods: {
-  //   addExpense() {
-  //     this.currentExpenses += this.enteredExpense;
-  //   },
-  // },
+  //   setNewAge() {
+  //     this.age = 30;
+  //   }
+  // }
   // watch: {
-  //   remainingFunds(val) {
-  //     if (val < 0) {
-  //       alert('You are broke!');
-  //     }
-  //   },
-  // },
+  //   age(val) {
+  //     console.log(val);
+  //   }
+  // }
 };
 </script>
 
@@ -81,51 +80,21 @@ export default {
 * {
   box-sizing: border-box;
 }
+
 html {
   font-family: sans-serif;
 }
+
 body {
   margin: 0;
 }
-header {
-  width: 100%;
-  height: 5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #30006e;
-  color: white;
-}
-section {
-  margin: 2rem auto;
-  max-width: 35rem;
-  padding: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-  border-radius: 12px;
-}
 
-form div {
-  margin: 1rem 0;
-}
-input {
-  width: 100%;
-  padding: 0.15rem;
-}
-label {
-  font-weight: bold;
-  margin: 0.5rem 0;
-}
-button {
-  background-color: #30006e;
-  border: 1px solid #30006e;
-  font: inherit;
-  cursor: pointer;
-  padding: 0.5rem 1.5rem;
-  color: white;
-}
-button:hover,
-button:active {
-  background-color: #5819ac;
-  border-color: #5819ac;
+.container {
+  margin: 3rem auto;
+  max-width: 30rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  padding: 1rem;
+  text-align: center;
 }
 </style>
