@@ -1,48 +1,53 @@
 <template>
   <section class="container">
     <h2>{{ fullName }}</h2>
-    <!-- <h2>{{ user.name }}</h2>
-    <h3>{{ user.age }}</h3> -->
+    <!-- <h2>{{ user.name }}</h2> -->
+    <h3>{{ userAge }}</h3>
     <button @click="setAge">Change Age</button>
     <div>
-      <input type="text" placeholder="First Name" @input="setFirstName" />
-      <input type="text" placeholder="Last Name" @input="setLastName" />
+      <input type="text" placeholder="First Name" v-model="firstName" />
+      <input type="text" placeholder="Last Name" v-model="lastName" />
     </div>
   </section>
 </template>
 
 <script>
-import { ref, reactive, computed } from 'vue';
+import { ref, reactive, computed, watch } from 'vue';
 
 export default {
   setup() {
-    // const userName = ref('Maximilian');
-    // const userAge = ref(29);
-    const user = reactive({
-      name: 'Maximilian',
-      age: 29,
-    });
+    const userName = ref('Maximilian');
+    const userAge = ref(29);
+    // const user = reactive({
+    //   name: 'Maximilian',
+    //   age: 29,
+    // });
 
     const firstName = ref('');
     const lastName = ref('');
+
+    watch([userAge, userName], (newValues, oldValues) => {
+      console.log('Old Value', oldValues[0]);
+      console.log('New Value', newValues[0]);
+    });
 
     const fullName = computed(() => {
       return firstName.value + ' ' + lastName.value;
     });
 
     function setNewAge() {
-      user.age = 30;
+      // user.age = 30;
+      userAge.value = 30;
     }
 
-    function setFirstName(event) {
-      firstName.value = event.target.value;
-    }
-
-    function setLastName(event) {
-      lastName.value = event.target.value;
-    }
-
-    return { user, setAge: setNewAge, setFirstName, setLastName, fullName };
+    return {
+      userName,
+      userAge,
+      setAge: setNewAge,
+      firstName,
+      lastName,
+      fullName,
+    };
   },
   // data() {
   //   return {
@@ -52,6 +57,11 @@ export default {
   // methods: {
   //   setNewAge() {
   //     this.age = 30;
+  //   }
+  // }
+  // watch: {
+  //   age(val) {
+  //     console.log(val);
   //   }
   // }
 };
