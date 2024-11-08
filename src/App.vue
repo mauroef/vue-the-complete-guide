@@ -1,82 +1,81 @@
 <template>
-  <h2>My Course Goal</h2>
-  <!-- Task 1: Output your main course goal with help of the composition API -->
-  <!-- Don't hardcode it into the template, instead hardcode it into the JS code -->
-
-  <!-- ref object & reactive object -->
-  <!-- <h3 v-if="goal.show">{{ goal.text }}</h3> -->
-
-  <!-- ref & options api -->
-  <!-- <h3 v-if="show">{{ goal }}</h3> -->
-
-  <!-- Task 2: Toggle (show/ hide) the goal with help of the button  -->
-  <button @click="toggle">Toggle Goal</button>
-  <!-- Task 3: Manage data in three ways -->
-  <!-- => Separate refs -->
-  <!-- => Ref Object -->
-  <!-- => Reactive Object -->
-  <!-- Task 4: Also solve the assignment with the Options API -->
+  <section class="container">
+    <h2>{{ fullName }}</h2>
+    <!-- <h2>{{ user.name }}</h2>
+    <h3>{{ user.age }}</h3> -->
+    <button @click="setAge">Change Age</button>
+    <div>
+      <input type="text" placeholder="First Name" @input="setFirstName" />
+      <input type="text" placeholder="Last Name" @input="setLastName" />
+    </div>
+  </section>
 </template>
 
 <script>
-import { ref, reactive } from 'vue';
+import { ref, reactive, computed } from 'vue';
 
 export default {
   setup() {
-    // ref
-    // const goal = ref('Learn Vue');
-    // const show = ref(true);
-
-    // function toggle() {
-    //   show.value = !show.value;
-    // }
-
-    // return { goal: goal.value, show: show, toggle };
-
-    // ref object
-    // const goal = ref({
-    //   text: 'Learn Vue',
-    //   show: true,
-    // });
-
-    // function toggle() {
-    //   goal.value.show = !goal.value.show;
-    // }
-
-    // return { goal, toggle };
-
-    // reactive object
-    const goal = reactive({
-      text: 'Learn Vue',
-      show: true,
+    // const userName = ref('Maximilian');
+    // const userAge = ref(29);
+    const user = reactive({
+      name: 'Maximilian',
+      age: 29,
     });
 
-    function toggle() {
-      goal.show = !goal.show;
+    const firstName = ref('');
+    const lastName = ref('');
+
+    const fullName = computed(() => {
+      return firstName.value + ' ' + lastName.value;
+    });
+
+    function setNewAge() {
+      user.age = 30;
     }
 
-    return { goal, toggle };
+    function setFirstName(event) {
+      firstName.value = event.target.value;
+    }
+
+    function setLastName(event) {
+      lastName.value = event.target.value;
+    }
+
+    return { user, setAge: setNewAge, setFirstName, setLastName, fullName };
   },
   // data() {
   //   return {
-  //     goal: 'Learn Vue',
-  //     show: true,
+  //     userName: 'Maximilian',
   //   };
   // },
   // methods: {
-  //   toggle() {
-  //     this.show = !this.show;
-  //   },
-  // },
+  //   setNewAge() {
+  //     this.age = 30;
+  //   }
+  // }
 };
 </script>
 
 <style>
+* {
+  box-sizing: border-box;
+}
+
 html {
   font-family: sans-serif;
 }
+
 body {
-  margin: 3rem;
+  margin: 0;
+}
+
+.container {
+  margin: 3rem auto;
+  max-width: 30rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  padding: 1rem;
   text-align: center;
 }
 </style>
