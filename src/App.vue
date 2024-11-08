@@ -1,85 +1,32 @@
 <template>
-  <section class="container">
-    <user-data :first-name="firstName" :last-name="lastName"></user-data>
-    <button @click="setAge">Change Age</button>
-    <div>
-      <input type="text" placeholder="First Name" v-model="firstName" />
-      <input type="text" placeholder="Last Name" ref="lastNameInput" />
-      <button @click="setLastName">Set last name</button>
-    </div>
-  </section>
+  <main>
+    <user-list :users="activeUsers" @list-projects="selectUser"></user-list>
+    <projects-list :user="selectedUser"></projects-list>
+  </main>
 </template>
 
 <script>
-import { ref, reactive, computed, watch, provide } from 'vue';
-import UserData from './components/UserData.vue';
+import USER_DATA from './dummy-data.js';
+
+import UserList from './components/users/UserList.vue';
+import ProjectsList from './components/projects/ProjectsList.vue';
 
 export default {
-  components: { UserData },
-  setup() {
-    const userName = ref('Maximilian');
-    const userAge = ref(29);
-    // const user = reactive({
-    //   name: 'Maximilian',
-    //   age: 29,
-    // });
-
-    const firstName = ref('');
-    const lastName = ref('');
-
-    const lastNameInput = ref(null);
-
-    provide('userAge', userAge);
-
-    watch([userAge, userName], (newValues, oldValues) => {
-      console.log('Old Value', oldValues[0]);
-      console.log('New Value', newValues[0]);
-    });
-
-    const fullName = computed(() => {
-      return firstName.value + ' ' + lastName.value;
-    });
-
-    function setNewAge() {
-      // user.age = 30;
-      userAge.value = 30;
-    }
-
-    function setLastName() {
-      lastName.value = lastNameInput.value.value;
-    }
-
+  components: {
+    UserList,
+    ProjectsList,
+  },
+  data() {
     return {
-      userName,
-      userAge,
-      setAge: setNewAge,
-      firstName,
-      lastName,
-      fullName,
-      lastNameInput,
-      setLastName,
+      selectedUser: null,
+      activeUsers: USER_DATA,
     };
   },
-  // data() {
-  //   return {
-  //     userName: 'Maximilian',
-  //   };
-  // },
-  // methods: {
-  //   setNewAge() {
-  //     this.age = 30;
-  //   }
-  // }
-  // watch: {
-  //   age(val) {
-  //     console.log(val);
-  //   }
-  // },
-  // provided() {
-  //   return {
-  //     userAge: this.age,
-  //   };
-  // },
+  methods: {
+    selectUser(uid) {
+      this.selectedUser = this.activeUsers.find((usr) => usr.id === uid);
+    },
+  },
 };
 </script>
 
@@ -87,21 +34,34 @@ export default {
 * {
   box-sizing: border-box;
 }
-
 html {
   font-family: sans-serif;
 }
-
 body {
   margin: 0;
 }
 
-.container {
-  margin: 3rem auto;
-  max-width: 30rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-  padding: 1rem;
-  text-align: center;
+main {
+  display: flex;
+  justify-content: space-around;
+}
+
+button {
+  font: inherit;
+  border: 1px solid #00006b;
+  background-color: transparent;
+  color: #00006b;
+  padding: 0.5rem 1.5rem;
+  cursor: pointer;
+  margin: 0.5rem 0.5rem 0.5rem 0;
+}
+button:hover,
+button:active {
+  background-color: #efefff;
+}
+
+button.selected {
+  background-color: #00006b;
+  color: white;
 }
 </style>
