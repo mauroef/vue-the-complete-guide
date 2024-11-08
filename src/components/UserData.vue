@@ -6,18 +6,20 @@
 </template>
 
 <script>
-import { computed } from 'vue';
+import { computed, inject } from 'vue';
 
 export default {
-  props: ['firstName', 'lastName', 'age'],
+  props: ['firstName', 'lastName'],
   setup(props, context) {
     const userName = computed(() => {
       return props.firstName + ' ' + props.lastName;
     });
 
+    const age = inject('userAge');
+
     // context.emit('change-age', 30); // this.$emit('change-age', 30);
 
-    return { userName };
+    return { userName, age };
   },
   // computed: {
   //   userName() {
